@@ -1,11 +1,23 @@
 import _ from 'lodash';
-function component() {
-    const element = document.createElement('div');
-  
-    // Lodash, currently included via a script, is required for this line to work
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  
-    return element;
+
+class ship 
+{
+  constructor(length)
+  {
+    this.length = length;
+    this.numhits = 0;
+    this.sunk = false;
   }
-  
-  document.body.appendChild(component());
+  hit()
+  {
+    console.log('working1');
+  }
+  isSunk()
+  {
+    console.log('working2');
+  }
+}
+
+let ship1 = new ship(2);
+console.log(ship1.hit);
+console.log(ship1.length);
