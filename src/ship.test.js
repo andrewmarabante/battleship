@@ -1,5 +1,4 @@
-const { constant } = require('lodash');
-const ship = require('./objects');
+const {ship} = require('./objects');
 
 test('Ship has a default length of 1',() => {
   const ship1 = new ship();
