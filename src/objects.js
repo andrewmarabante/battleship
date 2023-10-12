@@ -1,6 +1,6 @@
 class ship 
 {
-  constructor(length, numhits = 0, sunk = false)
+  constructor(length = 1, numhits = 0, sunk = false)
   {
     this.length = length;
     this.numhits = numhits;
@@ -8,9 +8,14 @@ class ship
   }
   hit()
   {
+    this.numhits++;
   }
   isSunk()
   {
+    if(this.numhits === this.length && this.sunk!== true)
+    {
+      this.sunk = true;
+    }
   }
 }
 
