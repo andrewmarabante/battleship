@@ -1,4 +1,5 @@
 const {ship} = require('./objects');
+const {board} = require('./objects');
 
 test('Ship has a default length of 1',() => {
   const ship1 = new ship();
@@ -43,4 +44,14 @@ test('isSunk checks if numhits = length, if so turns sunk from false to true',()
   ship1.hit();
   ship1.isSunk();
   expect(ship1.sunk).toBe(true);
+});
+
+test('Hits will run isSunk function',() => {
+  const board1 = new board;
+  board1.setBoard;
+  ship1.hit()
+  expect(ship1.sunk).toBe(true)
+  ship2.hit();
+  ship2.hit();
+  expect(ship2.sunk).toBe(true);
 });

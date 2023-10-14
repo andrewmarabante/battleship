@@ -28,3 +28,21 @@ test('Sends a hit to corresponding ship if hit',() => {
     board1.receiveAttack([3,2]);
     expect(ship3.numhits).toBe(2);
   });
+
+  test('Doesnt allow for placement if ship will be off grid horizontally',() => {
+    const board1 = new board;
+    board1.setBoard;
+    expect(board1.placeShip(ship5,([9,8]))).toBe('Invalid Placement');
+  });
+
+  test('checkGame will trigger alert if all ships are sunk',() => {
+    const board1 = new board;
+    board1.setBoard;
+    ship2.sunk = true;
+    ship3.sunk = true;
+    ship4.sunk = true;
+    ship5.sunk = true;
+    ship6.sunk = true;
+    board1.receiveAttack([1,1])
+    expect(board1.isGame).toBe(true);
+  });
