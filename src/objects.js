@@ -225,12 +225,32 @@ class player
   {
     this.myTurn = true;
     this.wins = 0;
+    this.compAttacks = [];
   }
 
-  randNum()
+  compAttack()
   {
-
-  }
+    let x = Math.floor(Math.random()*10);
+    let y = Math.floor(Math.random()*10);
+    if(this.compAttacks.length<=100)
+    {
+      if(this.compAttacks.length !== 0)
+      {
+        for(let i=0; i<this.compAttacks.length; i++)
+        {
+          if(this.compAttacks[i][0] === x && this.compAttacks[i][1] === y )
+          {
+          return this.compAttack();
+          }
+        }
+          this.compAttacks.push([x,y])
+          return [x,y];
+      }
+      else{
+        this.compAttacks.push([x,y]);
+        return [x,y];}
+      }else{return 'Invalid'}
+    }
 }
 
 exports.board = gameboard;
