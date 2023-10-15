@@ -48,10 +48,11 @@ test('isSunk checks if numhits = length, if so turns sunk from false to true',()
 
 test('Hits will run isSunk function',() => {
   const board1 = new board;
-  board1.setBoard;
+  board1.setBoard();
   ship1.hit()
   expect(ship1.sunk).toBe(true)
   ship2.hit();
   ship2.hit();
   expect(ship2.sunk).toBe(true);
+  expect(ship3.sunk).toBe(false);
 });

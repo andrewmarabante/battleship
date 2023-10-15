@@ -10,10 +10,11 @@ class ship
   hit()
   {
     this.numhits++;
+    this.isSunk();
   }
   isSunk()
   {
-    if(this.numhits === this.length && this.sunk!== true)
+    if(this.numhits === this.length && this.sunk!= true)
     {
       this.sunk = true;
     }
@@ -26,6 +27,7 @@ class gameboard
   {
     this.miss = [];
     this.hit = [];
+    this.game = false;
   }
 
     setBoard()
@@ -40,12 +42,16 @@ class gameboard
 
     placeShip(ship,[x,y])
     {
-      ship.coord=[];
-      for(let i=0;i< ship.length;i++)
+      if(y+ship.length <=10)
       {
-        let newcoord = [x,y+i];
-        ship.coord.push(newcoord);
+        ship.coord=[];
+        for(let i=0;i< ship.length;i++)
+        {
+          let newcoord = [x,y+i];
+          ship.coord.push(newcoord);
+        }
       }
+      else{return 'Invalid Placement'}
     }
 
     receiveAttack([x,y])
@@ -118,7 +124,10 @@ class gameboard
 
     checkGame()
     {
-
+      if(ship1.sunk === true && ship2.sunk === true && ship3.sunk === true && ship4.sunk === true && ship5.sunk === true && ship6.sunk === true)
+      {
+        this.game = true;
+      }
     }
 }
 
