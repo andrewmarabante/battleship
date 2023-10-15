@@ -11,14 +11,14 @@ test('Can place ships at specific coordinates',() => {
 test('Takes an attack,determines hit or miss, and records it',() => {
     const board1 = new board;
     board1.setBoard();
-    board1.receiveAttack([5,2]);
-    board1.receiveAttack([4,2]);
-    board1.receiveAttack([1,2]);
-    board1.receiveAttack([6,2]);
-    board1.receiveAttack([8,2]);
-    board1.receiveAttack([9,3]);
-    expect(board1.hit).toEqual([[5,2],[4,2],[6,2]]);
-    expect(board1.miss).toEqual([[1,2],[8,2],[9,3]]);
+    board1.receiveAttack([1,1]);
+    expect(board1.p1hit).toEqual([[1,1]]);
+    board1.receiveAttack([8,8]);
+    expect(board1.p1miss).toEqual([[8,8]]);
+    board1.receiveAttack([1,1]);
+    expect(board1.comphit).toEqual([[1,1]]);
+    board1.receiveAttack([3,7]);
+    expect(board1.compmiss).toEqual([[3,7]]);
   });
 
 test('Sends a hit to corresponding ship if hit',() => {
@@ -26,27 +26,27 @@ test('Sends a hit to corresponding ship if hit',() => {
     board1.setBoard();
     board1.receiveAttack([3,1]);
     board1.receiveAttack([3,2]);
-    expect(ship3.numhits).toBe(2);
+    expect(compship3.numhits).toBe(2);
   });
 
   test('Doesnt allow for placement if ship will be off grid vertically',() => {
     const board1 = new board;
     board1.setBoard();
-    board1.placeShip(ship5,[9,8]);
-    expect(board1.placeShip(ship5,[9,8])).toBe('Invalid Placement');
-    expect(ship5.coord).toEqual([[5,1],[5,2],[5,3],[5,4]])
-    board1.placeShip(ship5,[5,2]);
-    expect(ship5.coord).toEqual([[5,2],[5,3],[5,4],[5,5]])
+    board1.placeShip(p1ship5,[9,8]);
+    expect(board1.placeShip(p1ship5,[9,8])).toBe('Invalid Placement');
+    expect(p1ship5.coord).toEqual([[5,1],[5,2],[5,3],[5,4]])
+    board1.placeShip(compship5,[5,2]);
+    expect(compship5.coord).toEqual([[5,2],[5,3],[5,4],[5,5]])
   });
 
   test('checkGame will trigger alert if all ships are sunk',() => {
     const board1 = new board;
     board1.setBoard();
-    ship2.sunk = true;
-    ship3.sunk = true;
-    ship4.sunk = true;
-    ship5.sunk = true;
-    ship6.sunk = true;
+    compship2.sunk = true;
+    compship3.sunk = true;
+    compship4.sunk = true;
+    compship5.sunk = true;
+    compship6.sunk = true;
     board1.checkGame();
     expect(board1.game).toBe(false);
     board1.receiveAttack([1,1]);
