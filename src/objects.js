@@ -19,6 +19,10 @@ class ship
       this.sunk = true;
     }
   }
+  test()
+  {
+    console.log('import working');
+  }
 }
 
 class gameboard
