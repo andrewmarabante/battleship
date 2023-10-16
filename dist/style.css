@@ -1,3 +1,18 @@
-div{
-    background-color: blue;
+#gridContainer{
+    display: flex;
+    gap: 1em;
+}
+
+.grid-element{
+    border: solid 1px black ;
+}
+
+.grid{
+    display: grid;
+    border: solid;
+    grid-template-columns: repeat(10, auto);
+    grid-template-rows: repeat(10, auto);
+    min-width: 425px;
+    min-height: 425px;
+    background-color: white;
 }
