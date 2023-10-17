@@ -6,7 +6,7 @@ const {player} = require('./objects');
 globalThis.currentShip = p1ship1;
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', runGame);
-export const board1 = new board;
+globalThis.board1 = new board;
 export let begin = false;
 
 board1.setBoard();
@@ -14,5 +14,4 @@ initialize();
 function runGame()
 {
   begin = true;
-  console.log(begin)
 }

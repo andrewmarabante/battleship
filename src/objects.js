@@ -84,6 +84,8 @@ class gameboard
           this.comphit.push([x,y]);
           hitconf = true;
           p1ship1.hit();
+          hitShipDOM([x,y]);
+          board1.receiveAttack(player1.compAttack())
         }
         //ship2
           for(let i=0;i<=1;i++)
@@ -93,6 +95,8 @@ class gameboard
                 this.comphit.push([x,y]);
                 hitconf = true;
                 p1ship2.hit();
+                hitShipDOM([x,y]);
+                board1.receiveAttack(player1.compAttack())
               }
           }
           //ship3
@@ -103,6 +107,8 @@ class gameboard
                 this.comphit.push([x,y]);
                 hitconf = true;
                 p1ship3.hit();
+                hitShipDOM([x,y]);
+                board1.receiveAttack(player1.compAttack())
               }
           }
           //ship4
@@ -113,6 +119,8 @@ class gameboard
                 this.comphit.push([x,y]);
                 hitconf = true;
                 p1ship4.hit();
+                hitShipDOM([x,y]);
+                board1.receiveAttack(player1.compAttack())
               }
           }
           //ship5
@@ -123,6 +131,8 @@ class gameboard
                 this.comphit.push([x,y]);
                 hitconf = true;
                 p1ship5.hit();
+                hitShipDOM([x,y]);
+                board1.receiveAttack(player1.compAttack())
               }
           }
           //ship6
@@ -133,23 +143,27 @@ class gameboard
                 this.comphit.push([x,y]);
                 hitconf = true;
                 p1ship6.hit();
+                hitShipDOM([x,y]);
+                board1.receiveAttack(player1.compAttack())
               }
           }
 
         if(hitconf === false)
         {
+          missedShipDOM([x,y]);
           this.compmiss.push([x,y]);
           player1.myTurn = true;
         }
       }
 
-      if(player1.myTurn === true)
+      else if(player1.myTurn === true)
       {
         if(compship1.coord[0][0] === x && compship1.coord[0][1] === y)
         {
           this.p1hit.push([x,y]);
           hitconf = true;
           compship1.hit();
+          hitShipDOM([x,y]);
         }
         //ship2
           for(let i=0;i<=1;i++)
@@ -159,6 +173,7 @@ class gameboard
                 this.p1hit.push([x,y]);
                 hitconf = true;
                 compship2.hit();
+                hitShipDOM([x,y]);
               }
           }
           //ship3
@@ -169,6 +184,7 @@ class gameboard
                 this.p1hit.push([x,y]);
                 hitconf = true;
                 compship3.hit();
+                hitShipDOM([x,y]);
               }
           }
           //ship4
@@ -179,6 +195,7 @@ class gameboard
                 this.p1hit.push([x,y]);
                 hitconf = true;
                 compship4.hit();
+                hitShipDOM([x,y]);
               }
           }
           //ship5
@@ -189,6 +206,7 @@ class gameboard
                 this.p1hit.push([x,y]);
                 hitconf = true;
                 compship5.hit();
+                hitShipDOM([x,y]);
               }
           }
           //ship6
@@ -199,13 +217,16 @@ class gameboard
                 this.p1hit.push([x,y]);
                 hitconf = true;
                 compship6.hit();
+                hitShipDOM([x,y]);
               }
           }
 
         if(hitconf === false)
         {
+          missedShipDOM([x,y]);
           this.p1miss.push([x,y]);
           player1.myTurn = false;
+          board1.receiveAttack(player1.compAttack());
         }
       }
     }
@@ -236,8 +257,8 @@ class player
 
   compAttack()
   {
-    let x = Math.floor(Math.random()*10);
-    let y = Math.floor(Math.random()*10);
+    let x = Math.floor(Math.random()*10)+1;
+    let y = Math.floor(Math.random()*10)+1;
     if(this.compAttacks.length<=100)
     {
       if(this.compAttacks.length !== 0)

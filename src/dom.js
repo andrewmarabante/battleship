@@ -1,5 +1,4 @@
 import { begin } from ".";
-import { board1 } from ".";
 
 function changeShip1()
 {
@@ -84,11 +83,16 @@ export function initialize()
 
 export function gridClick()
 {
-    if (begin === false)
+    if(begin === false)
     {
         console.log(getCoords(this.id))
         board1.placeShip(currentShip, getCoords(this.id));
         console.log(currentShip.coord)
+    }
+    if(begin === true && this.id.slice(0,1) === 'C')
+    {
+        board1.receiveAttack(getCoords(this.id))
+
     }
 }
 
@@ -101,20 +105,52 @@ function getCoords(idString)
     return [x,y];
 }
 
-export function getId(x,y)
+export function getPId(x,y)
 {
     let j = x-1;
     let i = 10-y;
     return `P[${i},${j}]`
 }
 
+export function getCId(x,y)
+{
+    let j = x-1;
+    let i = 10-y;
+    return `C[${i},${j}]`
+}
+
+
 window.placeShipDOM = function([x,y])
 {
-    document.getElementById(getId(x,y)).classList.add('ship');
+    document.getElementById(getPId(x,y)).classList.add('ship');
 }
 
 window.removeShipDOM = function([x,y])
 {
-    document.getElementById(getId(x,y)).classList.remove('ship');
-    console.log('pls')
+    document.getElementById(getPId(x,y)).classList.remove('ship');
+}
+
+window.hitShipDOM = function([x,y])
+{
+    if(player1.myTurn === true)
+    {
+    document.getElementById(getCId(x,y)).classList.add('hit');
+    }
+    else if(player1.myTurn === false)
+    {
+    document.getElementById(getPId(x,y)).classList.add('hit');
+    }
+}
+
+window.missedShipDOM = function([x,y])
+{
+    if(player1.myTurn === true)
+    {
+    document.getElementById(getCId(x,y)).classList.add('missed');
+    }
+    else if(player1.myTurn === false)
+    {
+        console.log([x,y])
+    document.getElementById(getPId(x,y)).classList.add('missed');
+    }
 }
