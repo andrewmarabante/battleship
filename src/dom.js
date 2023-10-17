@@ -1,4 +1,32 @@
-export function setGrids()
+import { begin } from ".";
+import { board1 } from ".";
+
+function changeShip1()
+{
+    currentShip = p1ship1;
+}
+function changeShip2()
+{
+    currentShip = p1ship2;
+}
+function changeShip3()
+{
+    currentShip = p1ship3;
+}
+function changeShip4()
+{
+    currentShip = p1ship4;
+}
+function changeShip5()
+{
+    currentShip = p1ship5;
+}
+function changeShip6()
+{
+    currentShip = p1ship6;
+}
+
+export function initialize()
 {
     const gridContainer = document.getElementById('gridContainer');
     const grid1 = document.createElement('DIV');
@@ -7,6 +35,18 @@ export function setGrids()
     grid2.classList.add('grid');
     gridContainer.appendChild(grid1);
     gridContainer.appendChild(grid2);
+    const ship1 = document.getElementById('p1ship1');
+    ship1.addEventListener('click', changeShip1);
+    const ship2 = document.getElementById('p1ship2');
+    ship2.addEventListener('click', changeShip2);
+    const ship3 = document.getElementById('p1ship3');
+    ship3.addEventListener('click', changeShip3);
+    const ship4 = document.getElementById('p1ship4');
+    ship4.addEventListener('click', changeShip4);
+    const ship5 = document.getElementById('p1ship5');
+    ship5.addEventListener('click', changeShip5);
+    const ship6 = document.getElementById('p1ship6');
+    ship6.addEventListener('click', changeShip6);
     for(let i=0; i<10; i++){
         for(let j=0; j<10; j++)
         {
@@ -22,11 +62,34 @@ export function setGrids()
         grid2.appendChild(grid2block);
         }
     }
+    placeShipDOM([1,1]);
+    placeShipDOM([2,1]);
+    placeShipDOM([2,2]);
+    placeShipDOM([3,1]);
+    placeShipDOM([3,2]);
+    placeShipDOM([3,3]);
+    placeShipDOM([4,1]);
+    placeShipDOM([4,2]);
+    placeShipDOM([4,3]);
+    placeShipDOM([5,1]);
+    placeShipDOM([5,2]);
+    placeShipDOM([5,3]);
+    placeShipDOM([5,4]);
+    placeShipDOM([6,1]);
+    placeShipDOM([6,2]);
+    placeShipDOM([6,3]);
+    placeShipDOM([6,4]);
+    placeShipDOM([6,5]);
 }
 
-function gridClick()
+export function gridClick()
 {
-    getCoords(this.id);
+    if (begin === false)
+    {
+        console.log(getCoords(this.id))
+        board1.placeShip(currentShip, getCoords(this.id));
+        console.log(currentShip.coord)
+    }
 }
 
 function getCoords(idString)
@@ -35,5 +98,23 @@ function getCoords(idString)
     let i = parseInt(idString.slice(4,5));
     let x = i+1;
     let y = (10-j);
-    console.log(x,y);
+    return [x,y];
+}
+
+export function getId(x,y)
+{
+    let j = x-1;
+    let i = 10-y;
+    return `P[${i},${j}]`
+}
+
+window.placeShipDOM = function([x,y])
+{
+    document.getElementById(getId(x,y)).classList.add('ship');
+}
+
+window.removeShipDOM = function([x,y])
+{
+    document.getElementById(getId(x,y)).classList.remove('ship');
+    console.log('pls')
 }

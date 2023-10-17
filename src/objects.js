@@ -1,3 +1,4 @@
+
 class ship 
 {
   constructor(length = 1, coord = [])
@@ -18,10 +19,6 @@ class ship
     {
       this.sunk = true;
     }
-  }
-  test()
-  {
-    console.log('import working');
   }
 }
 
@@ -58,16 +55,21 @@ class gameboard
 
     placeShip(ship,[x,y])
     {
-      if(y+ship.length <=10)
+      if(y+ship.length <=11)
       {
+        for(let i=0;i< ship.length;i++)
+        {
+          removeShipDOM(ship.coord[i]);
+        }
         ship.coord=[];
         for(let i=0;i< ship.length;i++)
         {
           let newcoord = [x,y+i];
           ship.coord.push(newcoord);
+          placeShipDOM(newcoord);
         }
       }
-      else{return 'Invalid Placement'}
+      else{console.log('Invalid Placement')}
     }
 
     receiveAttack([x,y])

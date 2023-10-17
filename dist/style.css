@@ -1,3 +1,9 @@
+#startButton{
+    min-height: 100px;
+    min-width: 100px;
+    border: solid black 1px;
+}
+
 #gridContainer{
     display: flex;
     gap: 1em;
@@ -15,4 +21,13 @@
     min-width: 425px;
     min-height: 425px;
     background-color: white;
+}
+
+.grid-element.ship{
+    background-color: blue;
+}
+
+.shipButton{
+    min-height: 5em;
+    min-width: 5em;
 }
