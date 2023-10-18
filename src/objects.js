@@ -12,6 +12,7 @@ class ship
   {
     this.numhits++;
     this.isSunk();
+    board1.checkGame();
   }
   isSunk()
   {
@@ -75,171 +76,190 @@ class gameboard
     receiveAttack([x,y])
     {
       let hitconf = false;
-
       //ship1
       if(player1.myTurn === false)
       {
-        if(p1ship1.coord[0][0] === x && p1ship1.coord[0][1] === y)
-        {
-          this.comphit.push([x,y]);
-          hitconf = true;
-          p1ship1.hit();
-          hitShipDOM([x,y]);
-          board1.receiveAttack(player1.compAttack())
-        }
-        //ship2
-          for(let i=0;i<=1;i++)
-          {
-              if(p1ship2.coord[i][0] === x && p1ship2.coord[i][1] ===y)
+            if(p1ship1.coord[0][0] === x && p1ship1.coord[0][1] === y)
+            {
+              this.comphit.push([x,y]);
+              hitconf = true;
+              p1ship1.hit();
+              hitShipDOM([x,y]);
+              board1.receiveAttack(player1.compAttack())
+            }
+            //ship2
+              for(let i=0;i<=1;i++)
               {
-                this.comphit.push([x,y]);
-                hitconf = true;
-                p1ship2.hit();
-                hitShipDOM([x,y]);
-                board1.receiveAttack(player1.compAttack())
+                  if(p1ship2.coord[i][0] === x && p1ship2.coord[i][1] ===y)
+                  {
+                    this.comphit.push([x,y]);
+                    hitconf = true;
+                    p1ship2.hit();
+                    hitShipDOM([x,y]);
+                    board1.receiveAttack(player1.compAttack())
+                  }
               }
-          }
-          //ship3
-          for(let i=0;i<=2;i++)
-          {
-              if(p1ship3.coord[i][0] === x && p1ship3.coord[i][1] ===y)
+              //ship3
+              for(let i=0;i<=2;i++)
               {
-                this.comphit.push([x,y]);
-                hitconf = true;
-                p1ship3.hit();
-                hitShipDOM([x,y]);
-                board1.receiveAttack(player1.compAttack())
+                  if(p1ship3.coord[i][0] === x && p1ship3.coord[i][1] ===y)
+                  {
+                    this.comphit.push([x,y]);
+                    hitconf = true;
+                    p1ship3.hit();
+                    hitShipDOM([x,y]);
+                    board1.receiveAttack(player1.compAttack())
+                  }
               }
-          }
-          //ship4
-          for(let i=0;i<=2;i++)
-          {
-              if(p1ship4.coord[i][0] === x && p1ship4.coord[i][1] ===y)
+              //ship4
+              for(let i=0;i<=2;i++)
               {
-                this.comphit.push([x,y]);
-                hitconf = true;
-                p1ship4.hit();
-                hitShipDOM([x,y]);
-                board1.receiveAttack(player1.compAttack())
+                  if(p1ship4.coord[i][0] === x && p1ship4.coord[i][1] ===y)
+                  {
+                    this.comphit.push([x,y]);
+                    hitconf = true;
+                    p1ship4.hit();
+                    hitShipDOM([x,y]);
+                    board1.receiveAttack(player1.compAttack())
+                  }
               }
-          }
-          //ship5
-          for(let i=0;i<=3;i++)
-          {
-              if(p1ship5.coord[i][0] === x && p1ship5.coord[i][1] ===y)
+              //ship5
+              for(let i=0;i<=3;i++)
               {
-                this.comphit.push([x,y]);
-                hitconf = true;
-                p1ship5.hit();
-                hitShipDOM([x,y]);
-                board1.receiveAttack(player1.compAttack())
+                  if(p1ship5.coord[i][0] === x && p1ship5.coord[i][1] ===y)
+                  {
+                    this.comphit.push([x,y]);
+                    hitconf = true;
+                    p1ship5.hit();
+                    hitShipDOM([x,y]);
+                    board1.receiveAttack(player1.compAttack())
+                  }
               }
-          }
-          //ship6
-          for(let i=0;i<=4;i++)
-          {
-              if(p1ship6.coord[i][0] === x && p1ship6.coord[i][1] ===y)
+              //ship6
+              for(let i=0;i<=4;i++)
               {
-                this.comphit.push([x,y]);
-                hitconf = true;
-                p1ship6.hit();
-                hitShipDOM([x,y]);
-                board1.receiveAttack(player1.compAttack())
+                  if(p1ship6.coord[i][0] === x && p1ship6.coord[i][1] ===y)
+                  {
+                    this.comphit.push([x,y]);
+                    hitconf = true;
+                    p1ship6.hit();
+                    hitShipDOM([x,y]);
+                    board1.receiveAttack(player1.compAttack())
+                  }
               }
-          }
 
-        if(hitconf === false)
-        {
-          missedShipDOM([x,y]);
-          this.compmiss.push([x,y]);
-          player1.myTurn = true;
+            if(hitconf === false)
+            {
+              missedShipDOM([x,y]);
+              this.compmiss.push([x,y]);
+              player1.myTurn = true;
+            }
         }
-      }
 
       else if(player1.myTurn === true)
       {
-        if(compship1.coord[0][0] === x && compship1.coord[0][1] === y)
+        let beenhit = false;
+        for(let i=0; i<board1.p1hit.length; i++)
         {
-          this.p1hit.push([x,y]);
-          hitconf = true;
-          compship1.hit();
-          hitShipDOM([x,y]);
+          if(board1.p1hit[i][0] === x && board1.p1hit[i][1] === y)
+          {
+            beenhit = true;
+          }
         }
-        //ship2
-          for(let i=0;i<=1;i++)
+        for(let i=0; i<board1.p1miss.length; i++)
+        {
+          if(board1.p1miss[i][0] === x && board1.p1miss[i][1] === y)
           {
-              if(compship2.coord[i][0] === x && compship2.coord[i][1] ===y)
-              {
-                this.p1hit.push([x,y]);
-                hitconf = true;
-                compship2.hit();
-                hitShipDOM([x,y]);
-              }
+            beenhit = true;
           }
-          //ship3
-          for(let i=0;i<=2;i++)
-          {
-              if(compship3.coord[i][0] === x && compship3.coord[i][1] ===y)
+        }
+        if(beenhit ===false)
+        {
+            if(compship1.coord[0][0] === x && compship1.coord[0][1] === y)
+            {
+              this.p1hit.push([x,y]);
+              hitconf = true;
+              compship1.hit();
+              hitShipDOM([x,y]);
+            }
+            //ship2
+              for(let i=0;i<=1;i++)
               {
-                this.p1hit.push([x,y]);
-                hitconf = true;
-                compship3.hit();
-                hitShipDOM([x,y]);
+                  if(compship2.coord[i][0] === x && compship2.coord[i][1] ===y)
+                  {
+                    this.p1hit.push([x,y]);
+                    hitconf = true;
+                    compship2.hit();
+                    hitShipDOM([x,y]);
+                  }
               }
-          }
-          //ship4
-          for(let i=0;i<=2;i++)
-          {
-              if(compship4.coord[i][0] === x && compship4.coord[i][1] ===y)
+              //ship3
+              for(let i=0;i<=2;i++)
               {
-                this.p1hit.push([x,y]);
-                hitconf = true;
-                compship4.hit();
-                hitShipDOM([x,y]);
+                  if(compship3.coord[i][0] === x && compship3.coord[i][1] ===y)
+                  {
+                    this.p1hit.push([x,y]);
+                    hitconf = true;
+                    compship3.hit();
+                    hitShipDOM([x,y]);
+                  }
               }
-          }
-          //ship5
-          for(let i=0;i<=3;i++)
-          {
-              if(compship5.coord[i][0] === x && compship5.coord[i][1] ===y)
+              //ship4
+              for(let i=0;i<=2;i++)
               {
-                this.p1hit.push([x,y]);
-                hitconf = true;
-                compship5.hit();
-                hitShipDOM([x,y]);
+                  if(compship4.coord[i][0] === x && compship4.coord[i][1] ===y)
+                  {
+                    this.p1hit.push([x,y]);
+                    hitconf = true;
+                    compship4.hit();
+                    hitShipDOM([x,y]);
+                  }
               }
-          }
-          //ship6
-          for(let i=0;i<=4;i++)
-          {
-              if(compship6.coord[i][0] === x && compship6.coord[i][1] ===y)
+              //ship5
+              for(let i=0;i<=3;i++)
               {
-                this.p1hit.push([x,y]);
-                hitconf = true;
-                compship6.hit();
-                hitShipDOM([x,y]);
+                  if(compship5.coord[i][0] === x && compship5.coord[i][1] ===y)
+                  {
+                    this.p1hit.push([x,y]);
+                    hitconf = true;
+                    compship5.hit();
+                    hitShipDOM([x,y]);
+                  }
               }
-          }
+              //ship6
+              for(let i=0;i<=4;i++)
+              {
+                  if(compship6.coord[i][0] === x && compship6.coord[i][1] ===y)
+                  {
+                    this.p1hit.push([x,y]);
+                    hitconf = true;
+                    compship6.hit();
+                    hitShipDOM([x,y]);
+                  }
+              }
 
-        if(hitconf === false)
-        {
-          missedShipDOM([x,y]);
-          this.p1miss.push([x,y]);
-          player1.myTurn = false;
-          board1.receiveAttack(player1.compAttack());
+            if(hitconf === false)
+            {
+              missedShipDOM([x,y]);
+              this.p1miss.push([x,y]);
+              player1.myTurn = false;
+              board1.receiveAttack(player1.compAttack());
+            }
+          }
         }
-      }
     }
 
     checkGame()
     {
       if(p1ship1.sunk === true && p1ship2.sunk === true && p1ship3.sunk === true && p1ship4.sunk === true && p1ship5.sunk === true && p1ship6.sunk === true)
       {
+        alert('Computer Wins');
         this.game = true;
         player1.wins++;
       }
       if(compship1.sunk === true && compship2.sunk === true && compship3.sunk === true && compship4.sunk === true && compship5.sunk === true && compship6.sunk === true)
       {
+        alert('Player Wins');
         this.game = true;
         player1.losses++;
       }
