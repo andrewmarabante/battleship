@@ -54,35 +54,59 @@ class gameboard
       globalThis.player1 = new player();
     }
 
-    placeShip(ship,[x,y])
+    placeShip(ship,[x,y], player = true)
     {
-      console.log(isOverlap(ship,[x,y]));
-      if(y+ship.length <=11 && horizontal === false && isOverlap(ship,[x,y]) === false)
+      if(player === true)
       {
-        for(let i=0;i< ship.length;i++)
+        if(y+ship.length <=11 && horizontal === false && isOverlap(ship,[x,y]) === false)
         {
-          removeShipDOM(ship.coord[i]);
+          for(let i=0;i< ship.length;i++)
+          {
+              removeShipDOM(ship.coord[i]);
+          }
+          ship.coord=[];
+          for(let i=0;i< ship.length;i++)
+          {
+            let newcoord = [x,y+i];
+            ship.coord.push(newcoord);
+              placeShipDOM(newcoord);
+          }
         }
-        ship.coord=[];
-        for(let i=0;i< ship.length;i++)
+        else if(x+ship.length <=11 && horizontal === true && isOverlap(ship,[x,y]) === false)
         {
-          let newcoord = [x,y+i];
-          ship.coord.push(newcoord);
-          placeShipDOM(newcoord);
+          for(let i=0;i< ship.length;i++)
+          {
+            removeShipDOM(ship.coord[i]);
+          }
+          ship.coord=[];
+          for(let i=0;i< ship.length;i++)
+          {
+            let newcoord = [x+i,y];
+            ship.coord.push(newcoord);
+            placeShipDOM(newcoord);
+          }
         }
       }
-      else if(x+ship.length <=11 && horizontal === true && isOverlap(ship,[x,y]) === false)
+      else if(player === false)
       {
-        for(let i=0;i< ship.length;i++)
+        console.log('working')
+        if(y+ship.length <=11 && horizontal === false && isOverlap(ship,[x,y], false) === false)
         {
-          removeShipDOM(ship.coord[i]);
+          ship.coord=[];
+          for(let i=0;i< ship.length;i++)
+          {
+            let newcoord = [x,y+i];
+            ship.coord.push(newcoord);
+          }
         }
-        ship.coord=[];
-        for(let i=0;i< ship.length;i++)
+        else if(x+ship.length <=11 && horizontal === true && isOverlap(ship,[x,y], false) === false)
         {
-          let newcoord = [x+i,y];
-          ship.coord.push(newcoord);
-          placeShipDOM(newcoord);
+          ship.coord=[];
+          for(let i=0;i< ship.length;i++)
+          {
+            let newcoord = [x+i,y];
+            ship.coord.push(newcoord);
+          }
         }
       }
     }
@@ -312,149 +336,337 @@ class player
         return [x,y];}
       }else{return 'Invalid'}
     }
+
+    randNum()
+    {
+      return Math.floor(Math.random()*10)+1;
+    }
+
+    placeCompShips()
+    {
+      let x = Math.floor(Math.random()*10)+1;
+      if(x <=5){horizontal = true
+      }else{horizontal = false};
+      board1.placeShip(compship6,[player1.randNum(),player1.randNum()],false)
+      x = Math.floor(Math.random()*10)+1;
+      if(x <=5){horizontal = true
+      }else{horizontal = false};
+      board1.placeShip(compship5,[player1.randNum(),player1.randNum()],false)
+      x = Math.floor(Math.random()*10)+1;
+      if(x <=5){horizontal = true
+      }else{horizontal = false};
+      board1.placeShip(compship4,[player1.randNum(),player1.randNum()],false)
+      x = Math.floor(Math.random()*10)+1;
+      if(x <=5){horizontal = true
+      }else{horizontal = false};
+      board1.placeShip(compship3,[player1.randNum(),player1.randNum()],false)
+      x = Math.floor(Math.random()*10)+1;
+      if(x <=5){horizontal = true
+      }else{horizontal = false};
+      board1.placeShip(compship2,[player1.randNum(),player1.randNum()],false)
+      x = Math.floor(Math.random()*10)+1;
+      if(x <=5){horizontal = true
+      }else{horizontal = false};
+      board1.placeShip(compship1,[player1.randNum(),player1.randNum()],false)
+      horizontal = false
+      console.log(compship6.coord)
+      console.log(compship5.coord)
+      console.log(compship4.coord)
+      console.log(compship3.coord)
+      console.log(compship2.coord)
+      console.log(compship1.coord)
+    }
 }
 
-function isOverlap(ship,[x,y])
+function isOverlap(ship,[x,y], player = true)
 {
-  if (horizontal === false)
+  if (player === true)
   {
-    for(let i=0;  i<ship.length; i++)
+    if (horizontal === false)
     {
-      //check ship1
-      if(ship != p1ship1)
+      for(let i=0;  i<ship.length; i++)
       {
-        if(p1ship1.coord[0][0] === x && p1ship1.coord[0][1] === y+i)
+        //check ship1
+        if(ship != p1ship1)
         {
-          return true;
-        }
-      }
-      //check ship2
-      if(ship != p1ship2)
-      {
-        for(let j = 0; j<p1ship2.length; j++)
-        {
-          if(p1ship2.coord[j][0] === x && p1ship2.coord[j][1] === y+i)
+          if(p1ship1.coord[0][0] === x && p1ship1.coord[0][1] === y+i)
           {
             return true;
           }
         }
-      }
-      //check ship3
-      if(ship != p1ship3)
-      {
-        for(let j = 0; j<p1ship3.length; j++)
+        //check ship2
+        if(ship != p1ship2)
         {
-          if(p1ship3.coord[j][0] === x && p1ship3.coord[j][1] === y+i)
+          for(let j = 0; j<p1ship2.length; j++)
           {
-            return true;
+            if(p1ship2.coord[j][0] === x && p1ship2.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship3
+        if(ship != p1ship3)
+        {
+          for(let j = 0; j<p1ship3.length; j++)
+          {
+            if(p1ship3.coord[j][0] === x && p1ship3.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship4
+        if(ship != p1ship4)
+        {
+          for(let j = 0; j<p1ship4.length; j++)
+          {
+            if(p1ship4.coord[j][0] === x && p1ship4.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship5
+        if(ship != p1ship5)
+        {
+          for(let j = 0; j<p1ship5.length; j++)
+          {
+            if(p1ship5.coord[j][0] === x && p1ship5.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship6
+        if(ship != p1ship6)
+        {
+          for(let j = 0; j<p1ship6.length; j++)
+          {
+            if(p1ship6.coord[j][0] === x && p1ship6.coord[j][1] === y+i)
+            {
+              return true;
+            }
           }
         }
       }
-      //check ship4
-      if(ship != p1ship4)
-      {
-        for(let j = 0; j<p1ship4.length; j++)
-        {
-          if(p1ship4.coord[j][0] === x && p1ship4.coord[j][1] === y+i)
-          {
-            return true;
-          }
-        }
-      }
-      //check ship5
-      if(ship != p1ship5)
-      {
-        for(let j = 0; j<p1ship5.length; j++)
-        {
-          if(p1ship5.coord[j][0] === x && p1ship5.coord[j][1] === y+i)
-          {
-            return true;
-          }
-        }
-      }
-      //check ship6
-      if(ship != p1ship6)
-      {
-        for(let j = 0; j<p1ship6.length; j++)
-        {
-          if(p1ship6.coord[j][0] === x && p1ship6.coord[j][1] === y+i)
-          {
-            return true;
-          }
-        }
-      }
+      return false;
     }
-    return false;
+    else if (horizontal === true)
+    {
+      for(let i=0;  i<ship.length; i++)
+      {
+        //check ship1
+        if(ship != p1ship1)
+        {
+          if(p1ship1.coord[0][0] === x+i && p1ship1.coord[0][1] === y)
+          {
+            return true;
+          }
+        }
+        //check ship2
+        if(ship != p1ship2)
+        {
+          for(let j = 0; j<p1ship2.length; j++)
+          {
+            if(p1ship2.coord[j][0] === x+i && p1ship2.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship3
+        if(ship != p1ship3)
+        {
+          for(let j = 0; j<p1ship3.length; j++)
+          {
+            if(p1ship3.coord[j][0] === x+i && p1ship3.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship4
+        if(ship != p1ship4)
+        {
+          for(let j = 0; j<p1ship4.length; j++)
+          {
+            if(p1ship4.coord[j][0] === x+i && p1ship4.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship5
+        if(ship != p1ship5)
+        {
+          for(let j = 0; j<p1ship5.length; j++)
+          {
+            if(p1ship5.coord[j][0] === x+i && p1ship5.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship6
+        if(ship != p1ship6)
+        {
+          for(let j = 0; j<p1ship6.length; j++)
+          {
+            if(p1ship6.coord[j][0] === x+i && p1ship6.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    }
   }
-  else if (horizontal === true)
+  else if(player === false)
   {
-    for(let i=0;  i<ship.length; i++)
+    console.log('overlap running')
+    if (horizontal === false)
     {
-      //check ship1
-      if(ship != p1ship1)
+      for(let i=0;  i<ship.length; i++)
       {
-        if(p1ship1.coord[0][0] === x+i && p1ship1.coord[0][1] === y)
+        //check ship1
+        if(ship != compship1)
         {
-          return true;
-        }
-      }
-      //check ship2
-      if(ship != p1ship2)
-      {
-        for(let j = 0; j<p1ship2.length; j++)
-        {
-          if(p1ship2.coord[j][0] === x+i && p1ship2.coord[j][1] === y)
+          if(compship1.coord[0][0] === x && compship1.coord[0][1] === y+i)
           {
             return true;
           }
         }
-      }
-      //check ship3
-      if(ship != p1ship3)
-      {
-        for(let j = 0; j<p1ship3.length; j++)
+        //check ship2
+        if(ship != compship2)
         {
-          if(p1ship3.coord[j][0] === x+i && p1ship3.coord[j][1] === y)
+          for(let j = 0; j<compship2.length; j++)
           {
-            return true;
+            if(compship2.coord[j][0] === x && compship2.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship3
+        if(ship != compship3)
+        {
+          for(let j = 0; j<compship3.length; j++)
+          {
+            if(compship3.coord[j][0] === x && compship3.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship4
+        if(ship != compship4)
+        {
+          for(let j = 0; j<compship4.length; j++)
+          {
+            if(compship4.coord[j][0] === x && compship4.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship5
+        if(ship != compship5)
+        {
+          for(let j = 0; j<compship5.length; j++)
+          {
+            if(compship5.coord[j][0] === x && compship5.coord[j][1] === y+i)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship6
+        if(ship != compship6)
+        {
+          for(let j = 0; j<compship6.length; j++)
+          {
+            if(compship6.coord[j][0] === x && compship6.coord[j][1] === y+i)
+            {
+              return true;
+            }
           }
         }
       }
-      //check ship4
-      if(ship != p1ship4)
-      {
-        for(let j = 0; j<p1ship4.length; j++)
-        {
-          if(p1ship4.coord[j][0] === x+i && p1ship4.coord[j][1] === y)
-          {
-            return true;
-          }
-        }
-      }
-      //check ship5
-      if(ship != p1ship5)
-      {
-        for(let j = 0; j<p1ship5.length; j++)
-        {
-          if(p1ship5.coord[j][0] === x+i && p1ship5.coord[j][1] === y)
-          {
-            return true;
-          }
-        }
-      }
-      //check ship6
-      if(ship != p1ship6)
-      {
-        for(let j = 0; j<p1ship6.length; j++)
-        {
-          if(p1ship6.coord[j][0] === x+i && p1ship6.coord[j][1] === y)
-          {
-            return true;
-          }
-        }
-      }
+      console.log('hitting false')
+      return false;
     }
-    return false;
+    else if (horizontal === true)
+    {
+      for(let i=0;  i<ship.length; i++)
+      {
+        //check ship1
+        if(ship != compship1)
+        {
+          if(compship1.coord[0][0] === x+i && compship1.coord[0][1] === y)
+          {
+            return true;
+          }
+        }
+        //check ship2
+        if(ship != compship2)
+        {
+          for(let j = 0; j<compship2.length; j++)
+          {
+            if(compship2.coord[j][0] === x+i && compship2.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship3
+        if(ship != compship3)
+        {
+          for(let j = 0; j<compship3.length; j++)
+          {
+            if(compship3.coord[j][0] === x+i && compship3.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship4
+        if(ship != compship4)
+        {
+          for(let j = 0; j<compship4.length; j++)
+          {
+            if(compship4.coord[j][0] === x+i && compship4.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship5
+        if(ship != compship5)
+        {
+          for(let j = 0; j<compship5.length; j++)
+          {
+            if(compship5.coord[j][0] === x+i && compship5.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+        //check ship6
+        if(ship != compship6)
+        {
+          for(let j = 0; j<compship6.length; j++)
+          {
+            if(compship6.coord[j][0] === x+i && compship6.coord[j][1] === y)
+            {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    }
   }
 }
 

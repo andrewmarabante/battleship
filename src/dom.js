@@ -85,7 +85,7 @@ export function initialize()
 
 export function gridClick()
 {
-    if(begin === false)
+    if(begin === false && this.id.slice(0,1) === 'P')
     {
         board1.placeShip(currentShip, getCoords(this.id));
     }

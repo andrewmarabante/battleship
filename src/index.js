@@ -11,6 +11,13 @@ globalThis.horizontal = false;
 board1.setBoard();
 globalThis.currentShip = p1ship1;
 initialize();
+player1.placeCompShips();
+player1.placeCompShips();
+player1.placeCompShips();
+player1.placeCompShips();
+player1.placeCompShips();
+player1.placeCompShips();
+player1.placeCompShips();
 function runGame()
 {
   begin = true;
