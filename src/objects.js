@@ -56,7 +56,8 @@ class gameboard
 
     placeShip(ship,[x,y])
     {
-      if(y+ship.length <=11)
+      console.log(isOverlap(ship,[x,y]));
+      if(y+ship.length <=11 && horizontal === false && isOverlap(ship,[x,y]) === false)
       {
         for(let i=0;i< ship.length;i++)
         {
@@ -70,7 +71,20 @@ class gameboard
           placeShipDOM(newcoord);
         }
       }
-      else{console.log('Invalid Placement')}
+      else if(x+ship.length <=11 && horizontal === true && isOverlap(ship,[x,y]) === false)
+      {
+        for(let i=0;i< ship.length;i++)
+        {
+          removeShipDOM(ship.coord[i]);
+        }
+        ship.coord=[];
+        for(let i=0;i< ship.length;i++)
+        {
+          let newcoord = [x+i,y];
+          ship.coord.push(newcoord);
+          placeShipDOM(newcoord);
+        }
+      }
     }
 
     receiveAttack([x,y])
@@ -298,6 +312,150 @@ class player
         return [x,y];}
       }else{return 'Invalid'}
     }
+}
+
+function isOverlap(ship,[x,y])
+{
+  if (horizontal === false)
+  {
+    for(let i=0;  i<ship.length; i++)
+    {
+      //check ship1
+      if(ship != p1ship1)
+      {
+        if(p1ship1.coord[0][0] === x && p1ship1.coord[0][1] === y+i)
+        {
+          return true;
+        }
+      }
+      //check ship2
+      if(ship != p1ship2)
+      {
+        for(let j = 0; j<p1ship2.length; j++)
+        {
+          if(p1ship2.coord[j][0] === x && p1ship2.coord[j][1] === y+i)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship3
+      if(ship != p1ship3)
+      {
+        for(let j = 0; j<p1ship3.length; j++)
+        {
+          if(p1ship3.coord[j][0] === x && p1ship3.coord[j][1] === y+i)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship4
+      if(ship != p1ship4)
+      {
+        for(let j = 0; j<p1ship4.length; j++)
+        {
+          if(p1ship4.coord[j][0] === x && p1ship4.coord[j][1] === y+i)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship5
+      if(ship != p1ship5)
+      {
+        for(let j = 0; j<p1ship5.length; j++)
+        {
+          if(p1ship5.coord[j][0] === x && p1ship5.coord[j][1] === y+i)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship6
+      if(ship != p1ship6)
+      {
+        for(let j = 0; j<p1ship6.length; j++)
+        {
+          if(p1ship6.coord[j][0] === x && p1ship6.coord[j][1] === y+i)
+          {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+  else if (horizontal === true)
+  {
+    for(let i=0;  i<ship.length; i++)
+    {
+      //check ship1
+      if(ship != p1ship1)
+      {
+        if(p1ship1.coord[0][0] === x+i && p1ship1.coord[0][1] === y)
+        {
+          return true;
+        }
+      }
+      //check ship2
+      if(ship != p1ship2)
+      {
+        for(let j = 0; j<p1ship2.length; j++)
+        {
+          if(p1ship2.coord[j][0] === x+i && p1ship2.coord[j][1] === y)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship3
+      if(ship != p1ship3)
+      {
+        for(let j = 0; j<p1ship3.length; j++)
+        {
+          if(p1ship3.coord[j][0] === x+i && p1ship3.coord[j][1] === y)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship4
+      if(ship != p1ship4)
+      {
+        for(let j = 0; j<p1ship4.length; j++)
+        {
+          if(p1ship4.coord[j][0] === x+i && p1ship4.coord[j][1] === y)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship5
+      if(ship != p1ship5)
+      {
+        for(let j = 0; j<p1ship5.length; j++)
+        {
+          if(p1ship5.coord[j][0] === x+i && p1ship5.coord[j][1] === y)
+          {
+            return true;
+          }
+        }
+      }
+      //check ship6
+      if(ship != p1ship6)
+      {
+        for(let j = 0; j<p1ship6.length; j++)
+        {
+          if(p1ship6.coord[j][0] === x+i && p1ship6.coord[j][1] === y)
+          {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
 }
 
 exports.board = gameboard;

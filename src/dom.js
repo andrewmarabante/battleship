@@ -28,6 +28,8 @@ function changeShip6()
 export function initialize()
 {
     const gridContainer = document.getElementById('gridContainer');
+    const axis = document.getElementById('axis');
+    axis.addEventListener('click', changeAxis);
     const grid1 = document.createElement('DIV');
     const grid2 = document.createElement('DIV');
     grid1.classList.add('grid');
@@ -85,9 +87,7 @@ export function gridClick()
 {
     if(begin === false)
     {
-        console.log(getCoords(this.id))
         board1.placeShip(currentShip, getCoords(this.id));
-        console.log(currentShip.coord)
     }
     if(begin === true && this.id.slice(0,1) === 'C')
     {
@@ -152,5 +152,17 @@ window.missedShipDOM = function([x,y])
     {
         console.log([x,y])
     document.getElementById(getPId(x,y)).classList.add('missed');
+    }
+}
+
+function changeAxis()
+{
+    if (horizontal === false)
+    {
+        horizontal = true;
+    }
+    else if(horizontal === true)
+    {
+        horizontal = false;
     }
 }

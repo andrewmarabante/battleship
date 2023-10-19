@@ -7,7 +7,7 @@ const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', runGame);
 globalThis.board1 = new board;
 export let begin = false;
-
+globalThis.horizontal = false;
 board1.setBoard();
 globalThis.currentShip = p1ship1;
 initialize();
