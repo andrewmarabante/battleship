@@ -150,9 +150,13 @@ window.missedShipDOM = function([x,y])
     }
     else if(player1.myTurn === false)
     {
-        console.log([x,y])
     document.getElementById(getPId(x,y)).classList.add('missed');
     }
+}
+
+window.sinkShipDOM = function (shipName)
+{
+    document.getElementById(shipName).classList.add('sunk');
 }
 
 function changeAxis()

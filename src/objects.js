@@ -1,24 +1,48 @@
 
 class ship 
 {
-  constructor(length = 1, coord = [])
+  constructor(length = 1, coord = [], name = 'noname')
   {
     this.length = length;
     this.numhits = 0;
     this.sunk = false;
     this.coord = coord;
+    this.name = name;
   }
-  hit()
+  hit(comp = false, coord)
   {
     this.numhits++;
-    this.isSunk();
+    if (comp === true)
+    {
+      if(shipHunt === false)
+      {
+        shipHunt = true;
+        shipHuntCoord = coord;
+      }
+      this.isSunk(true);
+    }
+    else if (comp === false)
+    {
+      this.isSunk();
+    }
     board1.checkGame();
   }
-  isSunk()
+  isSunk(comp = false)
   {
     if(this.numhits === this.length && this.sunk!= true)
     {
       this.sunk = true;
+      sinkShipDOM(this.name);
+      if(comp === true && shipHunt === true)
+      {
+        shipHunt = false;
+        shipHuntCoord = [];
+        shipHuntNextCoord = [];
+        huntRight = true;
+        huntLeft = true;
+        huntUp = true;
+        huntDown = true;
+      }
     }
   }
 }
@@ -37,21 +61,28 @@ class gameboard
     setBoard()
     {
       //player ships
-      globalThis.p1ship1 = new ship(1,[[1,1]]);
-      globalThis.p1ship2 = new ship(2,[[2,1],[2,2]]);
-      globalThis.p1ship3 = new ship(3,[[3,1],[3,2],[3,3]]);
-      globalThis.p1ship4 = new ship(3,[[4,1],[4,2],[4,3]]);
-      globalThis.p1ship5 = new ship(4,[[5,1],[5,2],[5,3],[5,4]]);
-      globalThis.p1ship6 = new ship(5,[[6,1],[6,2],[6,3],[6,4],[6,5]]);
+      globalThis.p1ship1 = new ship(1,[[1,1]], 'p1ship1');
+      globalThis.p1ship2 = new ship(2,[[2,1],[2,2]],'p1ship2');
+      globalThis.p1ship3 = new ship(3,[[3,1],[3,2],[3,3]],'p1ship3');
+      globalThis.p1ship4 = new ship(3,[[4,1],[4,2],[4,3]],'p1ship4');
+      globalThis.p1ship5 = new ship(4,[[5,1],[5,2],[5,3],[5,4]],'p1ship5');
+      globalThis.p1ship6 = new ship(5,[[6,1],[6,2],[6,3],[6,4],[6,5]],'p1ship6');
       //computer ships
-      globalThis.compship1 = new ship(1,[[1,1]]);
-      globalThis.compship2 = new ship(2,[[2,1],[2,2]]);
-      globalThis.compship3 = new ship(3,[[3,1],[3,2],[3,3]]);
-      globalThis.compship4 = new ship(3,[[4,1],[4,2],[4,3]]);
-      globalThis.compship5 = new ship(4,[[5,1],[5,2],[5,3],[5,4]]);
-      globalThis.compship6 = new ship(5,[[6,1],[6,2],[6,3],[6,4],[6,5]]);
+      globalThis.compship1 = new ship(1,[[1,1]],'compship1');
+      globalThis.compship2 = new ship(2,[[2,1],[2,2]],'compship2');
+      globalThis.compship3 = new ship(3,[[3,1],[3,2],[3,3]],'compship3');
+      globalThis.compship4 = new ship(3,[[4,1],[4,2],[4,3]],'compship4');
+      globalThis.compship5 = new ship(4,[[5,1],[5,2],[5,3],[5,4]],'compship5');
+      globalThis.compship6 = new ship(5,[[6,1],[6,2],[6,3],[6,4],[6,5]],'compship6');
 
       globalThis.player1 = new player();
+      globalThis.shipHunt = false;
+      globalThis.shipHuntCoord = [];
+      globalThis.shipHuntNextCoord = [];
+      globalThis.huntRight = true;
+      globalThis.huntLeft = true;
+      globalThis.huntUp = true;
+      globalThis.huntDown = true;
     }
 
     placeShip(ship,[x,y], player = true)
@@ -89,7 +120,6 @@ class gameboard
       }
       else if(player === false)
       {
-        console.log('working')
         if(y+ship.length <=11 && horizontal === false && isOverlap(ship,[x,y], false) === false)
         {
           ship.coord=[];
@@ -121,7 +151,7 @@ class gameboard
             {
               this.comphit.push([x,y]);
               hitconf = true;
-              p1ship1.hit();
+              p1ship1.hit(true, [x,y]);
               hitShipDOM([x,y]);
               board1.receiveAttack(player1.compAttack())
             }
@@ -132,7 +162,7 @@ class gameboard
                   {
                     this.comphit.push([x,y]);
                     hitconf = true;
-                    p1ship2.hit();
+                    p1ship2.hit(true, [x,y]);
                     hitShipDOM([x,y]);
                     board1.receiveAttack(player1.compAttack())
                   }
@@ -144,7 +174,7 @@ class gameboard
                   {
                     this.comphit.push([x,y]);
                     hitconf = true;
-                    p1ship3.hit();
+                    p1ship3.hit(true, [x,y]);
                     hitShipDOM([x,y]);
                     board1.receiveAttack(player1.compAttack())
                   }
@@ -156,7 +186,7 @@ class gameboard
                   {
                     this.comphit.push([x,y]);
                     hitconf = true;
-                    p1ship4.hit();
+                    p1ship4.hit(true, [x,y]);
                     hitShipDOM([x,y]);
                     board1.receiveAttack(player1.compAttack())
                   }
@@ -168,7 +198,7 @@ class gameboard
                   {
                     this.comphit.push([x,y]);
                     hitconf = true;
-                    p1ship5.hit();
+                    p1ship5.hit(true, [x,y]);
                     hitShipDOM([x,y]);
                     board1.receiveAttack(player1.compAttack())
                   }
@@ -180,7 +210,7 @@ class gameboard
                   {
                     this.comphit.push([x,y]);
                     hitconf = true;
-                    p1ship6.hit();
+                    p1ship6.hit(true, [x,y]);
                     hitShipDOM([x,y]);
                     board1.receiveAttack(player1.compAttack())
                   }
@@ -191,6 +221,30 @@ class gameboard
               missedShipDOM([x,y]);
               this.compmiss.push([x,y]);
               player1.myTurn = true;
+              if(huntRight === true && shipHunt === true)
+              {
+                shipHuntNextCoord.pop();
+                shipHuntNextCoord.pop();
+                huntRight = false;
+              }
+              else if(huntLeft === true && shipHunt === true)
+              {
+                shipHuntNextCoord.pop();
+                shipHuntNextCoord.pop();
+                huntLeft = false;
+              }
+              else if(huntUp === true && shipHunt === true)
+              {
+                shipHuntNextCoord.pop();
+                shipHuntNextCoord.pop();
+                huntUp = false;
+              }
+              else if(huntDown === true && shipHunt === true)
+              {
+                shipHuntNextCoord.pop();
+                shipHuntNextCoord.pop();
+                huntDown = false;
+              }
             }
         }
 
@@ -211,7 +265,7 @@ class gameboard
             beenhit = true;
           }
         }
-        if(beenhit ===false)
+        if(beenhit === false)
         {
             if(compship1.coord[0][0] === x && compship1.coord[0][1] === y)
             {
@@ -317,24 +371,100 @@ class player
   {
     let x = Math.floor(Math.random()*10)+1;
     let y = Math.floor(Math.random()*10)+1;
-    if(this.compAttacks.length<=100)
+    if(shipHunt === false)
     {
-      if(this.compAttacks.length !== 0)
+      if(this.compAttacks.length<=100)
       {
-        for(let i=0; i<this.compAttacks.length; i++)
+        if(this.compAttacks.length !== 0)
         {
-          if(this.compAttacks[i][0] === x && this.compAttacks[i][1] === y )
+          for(let i=0; i<this.compAttacks.length; i++)
           {
-          return this.compAttack();
+            if(this.compAttacks[i][0] === x && this.compAttacks[i][1] === y )
+            {
+            return this.compAttack();
+            }
           }
+            this.compAttacks.push([x,y])
+            return [x,y];
         }
-          this.compAttacks.push([x,y])
-          return [x,y];
+        else{
+          this.compAttacks.push([x,y]);
+          return [x,y];}
+        }else{return 'Invalid'}
+    }
+    else if(shipHunt === true)
+    {
+      if(shipHuntNextCoord.length === 0)
+      {
+        x = shipHuntCoord[0];
+        y = shipHuntCoord[1];
       }
       else{
-        this.compAttacks.push([x,y]);
-        return [x,y];}
-      }else{return 'Invalid'}
+        x = shipHuntNextCoord[0];
+        y = shipHuntNextCoord[1];
+      }
+      let up = true;
+      let down = true;
+      let right = true;
+      let left = true;
+      //check for right position
+      for(let i=0; i<this.compAttacks.length; i++)
+          {
+            if(this.compAttacks[i][0] === x+1 && this.compAttacks[i][1] === y )
+            {
+            right = false;
+            }
+          }
+      //check for left position
+      for(let i=0; i<this.compAttacks.length; i++)
+          {
+            if(this.compAttacks[i][0] === x-1 && this.compAttacks[i][1] === y )
+            {
+            left = false;
+            }
+          }
+      //check for top position  
+      for(let i=0; i<this.compAttacks.length; i++)
+          {
+            if(this.compAttacks[i][0] === x && this.compAttacks[i][1] === y+1 )
+            {
+            up = false;
+            }
+          }
+      //check for bottom position
+      for(let i=0; i<this.compAttacks.length; i++)
+          {
+            if(this.compAttacks[i][0] === x && this.compAttacks[i][1] === y-1 )
+            {
+            down = false;
+            }
+          }
+
+      if(x+1 <= 10 && right === true && huntRight === true)
+      {
+        shipHuntNextCoord = [x+1,y];
+        this.compAttacks.push([x+1,y]);
+        return [x+1, y]
+      }
+      else if(x-1 >= 1 && left === true && huntLeft === true)
+      {
+        shipHuntNextCoord = [x-1,y];
+        this.compAttacks.push([x-1,y]);
+        return [x-1, y]
+      }
+      else if(y+1 <= 10 && up === true && huntUp === true)
+      {
+        shipHuntNextCoord = [x,y+1];
+        this.compAttacks.push([x,y+1]);
+        return [x, y+1]
+      }
+      else if(y-1 >= 1 && down === true && huntDown === true)
+      {
+        shipHuntNextCoord = [x,y-1];
+        this.compAttacks.push([x,y-1]);
+        return [x, y-1]
+      }
+    }
     }
 
     randNum()
@@ -369,12 +499,6 @@ class player
       }else{horizontal = false};
       board1.placeShip(compship1,[player1.randNum(),player1.randNum()],false)
       horizontal = false
-      console.log(compship6.coord)
-      console.log(compship5.coord)
-      console.log(compship4.coord)
-      console.log(compship3.coord)
-      console.log(compship2.coord)
-      console.log(compship1.coord)
     }
 }
 
@@ -525,7 +649,6 @@ function isOverlap(ship,[x,y], player = true)
   }
   else if(player === false)
   {
-    console.log('overlap running')
     if (horizontal === false)
     {
       for(let i=0;  i<ship.length; i++)
@@ -594,7 +717,6 @@ function isOverlap(ship,[x,y], player = true)
           }
         }
       }
-      console.log('hitting false')
       return false;
     }
     else if (horizontal === true)
