@@ -184,14 +184,15 @@ function changeAxis()
 
 window.displayGame = function (winner)
 {
+    document.getElementById('startButton').innerHTML = 'Rematch';
     let top = document.getElementById('top');
     if(winner === 'comp')
     {
-        top.innerHTML = 'Computer Wins!'
+        top.innerHTML = 'Computer Wins! Click Rematch to Play Again.'
     }
     else if(winner === 'player')
     {
-        top.innerHTML = 'Player Wins!'
+        top.innerHTML = 'Player Wins! Click Rematch to Play Again.'
     }
 }
 

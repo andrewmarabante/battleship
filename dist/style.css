@@ -1,7 +1,12 @@
 #startButton{
-    min-height: 100px;
-    min-width: 100px;
+    min-height: 7em;
+    min-width: 20em;
     border: solid black 1px;
+    border-radius: 1em;
+}
+
+#startButton:hover{
+    background-color: rgb(52, 194, 215);
 }
 
 #gridContainer{
@@ -10,12 +15,13 @@
 }
 
 .grid-element{
-    border: solid 1px black ;
+    border: solid 1px rgb(142, 163, 220) ;
+    background-color: rgb(207, 231, 239);
 }
 
 .grid{
     display: grid;
-    border: solid;
+    border: groove 5px black;
     grid-template-columns: repeat(10, auto);
     grid-template-rows: repeat(10, auto);
     min-width: 425px;
@@ -24,20 +30,30 @@
 }
 
 .grid-element.ship{
-    background-color: blue;
+    background-color: rgb(167, 158, 158);
 }
 
 .shipButton{
-    min-height: 5em;
-    min-width: 5em;
+    min-height: 2em;
+    background-color: rgb(201, 181, 181);
+    border: solid 1px black;
+    border-radius: .5em;
+}
+
+.shipButton:hover{
+    background-color: darkgray;
 }
 
 .grid-element.hit{
-    background-color: red;
+    background-color: rgb(221, 98, 98);
 }
 
 .grid-element.missed{
-    background-color: aqua;
+    background-color: rgb(20, 156, 214);
+}
+
+.grid-element:hover{
+    background-color: rgb(159, 185, 185);
 }
 
 .center{
@@ -50,13 +66,15 @@
     display: flex;
     flex-direction: column;
     gap: .5em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 .top{
-    min-height: 5em;
+    min-height: 3em;
     text-align: center;
+    padding-top: 1.5em;
+    font-size: large;
 }
 
 .bot{
@@ -66,5 +84,34 @@
 }
 
 .sunk{
-    background-color: blueviolet;
+    background-color: rgb(255, 0, 0);
 }
+
+#p1ship1, #compship1{
+width: 2em;
+}
+
+#p1ship2, #compship2{
+    width: 3.5em;
+}
+
+#p1ship3, #compship3{
+    width: 5em;
+}
+
+#p1ship4, #compship4{
+    width: 5em;
+}
+
+#p1ship5, #compship5{
+    width: 7em;
+}
+
+#p1ship6, #compship6{
+    width: 10em;
+}
+
+#plship1:hover{
+    background-color: darkgray;
+}
+
