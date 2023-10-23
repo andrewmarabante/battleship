@@ -396,13 +396,17 @@ class player
     {
       if(shipHuntNextCoord.length === 0)
       {
+        console.log('Shiphunt')
         x = shipHuntCoord[0];
         y = shipHuntCoord[1];
       }
       else{
+        console.log('shiphuntnext')
         x = shipHuntNextCoord[0];
         y = shipHuntNextCoord[1];
       }
+      console.log(x)
+      console.log(y)
       let up = true;
       let down = true;
       let right = true;
@@ -412,7 +416,12 @@ class player
           {
             if(this.compAttacks[i][0] === x+1 && this.compAttacks[i][1] === y )
             {
-            right = false;
+                console.log('rightfalse')
+              right = false;
+              if(shipHuntCoord[0] === x && shipHuntCoord[1] === y)
+              {
+                huntRight = false;
+              }
             }
           }
       //check for left position
@@ -420,7 +429,12 @@ class player
           {
             if(this.compAttacks[i][0] === x-1 && this.compAttacks[i][1] === y )
             {
+              console.log('leftfalse')
             left = false;
+            if(shipHuntCoord[0] === x && shipHuntCoord[1] === y)
+            {
+              huntLeft = false;
+            }
             }
           }
       //check for top position  
@@ -428,7 +442,12 @@ class player
           {
             if(this.compAttacks[i][0] === x && this.compAttacks[i][1] === y+1 )
             {
+              console.log('topfalse')
             up = false;
+            if(shipHuntCoord[0] === x && shipHuntCoord[1] === y)
+            {
+              huntUp = false;
+            }
             }
           }
       //check for bottom position
@@ -436,33 +455,47 @@ class player
           {
             if(this.compAttacks[i][0] === x && this.compAttacks[i][1] === y-1 )
             {
+              console.log('botfalse')
             down = false;
+            if(shipHuntCoord[0] === x && shipHuntCoord[1] === y)
+            {
+              huntDown = false;
+            }
             }
           }
 
       if(x+1 <= 10 && right === true && huntRight === true)
       {
+        console.log('right')
         shipHuntNextCoord = [x+1,y];
         this.compAttacks.push([x+1,y]);
         return [x+1, y]
       }
       else if(x-1 >= 1 && left === true && huntLeft === true)
       {
+        console.log('left')
         shipHuntNextCoord = [x-1,y];
         this.compAttacks.push([x-1,y]);
         return [x-1, y]
       }
       else if(y+1 <= 10 && up === true && huntUp === true)
       {
+        console.log('top')
         shipHuntNextCoord = [x,y+1];
         this.compAttacks.push([x,y+1]);
         return [x, y+1]
       }
       else if(y-1 >= 1 && down === true && huntDown === true)
       {
+        console.log('bot')
         shipHuntNextCoord = [x,y-1];
         this.compAttacks.push([x,y-1]);
         return [x, y-1]
+      }
+      else
+      {
+        shipHunt = false;
+        return player1.compAttack();
       }
     }
     }
