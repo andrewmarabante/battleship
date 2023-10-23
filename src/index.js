@@ -10,6 +10,7 @@ export let begin = false;
 globalThis.horizontal = false;
 board1.setBoard();
 globalThis.currentShip = p1ship1;
+globalThis.currentGrid = {};
 initialize();
 player1.placeCompShips();
 player1.placeCompShips();
@@ -20,5 +21,14 @@ player1.placeCompShips();
 player1.placeCompShips();
 function runGame()
 {
-  begin = true;
+  if(board1.game === false)
+  {
+    begin = true;
+  }
+  else if(board1.game === true)
+  {
+    begin = false;
+    board1.game = false;
+    wipe();
+  }
 }

@@ -28,8 +28,6 @@ function changeShip6()
 export function initialize()
 {
     const gridContainer = document.getElementById('gridContainer');
-    const axis = document.getElementById('axis');
-    axis.addEventListener('click', changeAxis);
     const grid1 = document.createElement('DIV');
     const grid2 = document.createElement('DIV');
     grid1.classList.add('grid');
@@ -64,32 +62,37 @@ export function initialize()
         }
     }
     placeShipDOM([1,1]);
-    placeShipDOM([2,1]);
-    placeShipDOM([2,2]);
-    placeShipDOM([3,1]);
-    placeShipDOM([3,2]);
-    placeShipDOM([3,3]);
-    placeShipDOM([4,1]);
-    placeShipDOM([4,2]);
-    placeShipDOM([4,3]);
-    placeShipDOM([5,1]);
-    placeShipDOM([5,2]);
-    placeShipDOM([5,3]);
-    placeShipDOM([5,4]);
-    placeShipDOM([6,1]);
+    placeShipDOM([2,10]);
+    placeShipDOM([3,10]);
     placeShipDOM([6,2]);
-    placeShipDOM([6,3]);
-    placeShipDOM([6,4]);
-    placeShipDOM([6,5]);
+    placeShipDOM([7,2]);
+    placeShipDOM([8,2]);
+    placeShipDOM([5,6]);
+    placeShipDOM([6,6]);
+    placeShipDOM([7,6]);
+    placeShipDOM([2,4]);
+    placeShipDOM([2,5]);
+    placeShipDOM([2,6]);
+    placeShipDOM([2,7]);
+    placeShipDOM([10,4]);
+    placeShipDOM([10,5]);
+    placeShipDOM([10,6]);
+    placeShipDOM([10,7]);
+    placeShipDOM([10,8]);
 }
 
 export function gridClick()
 {
     if(begin === false && this.id.slice(0,1) === 'P')
     {
+        if(currentGrid == this)
+        {
+            changeAxis();
+        }
+        currentGrid = this;
         board1.placeShip(currentShip, getCoords(this.id));
     }
-    if(begin === true && this.id.slice(0,1) === 'C')
+    if(begin === true && this.id.slice(0,1) === 'C' && board1.game === false)
     {
         board1.receiveAttack(getCoords(this.id))
 
@@ -159,6 +162,14 @@ window.sinkShipDOM = function (shipName)
     document.getElementById(shipName).classList.add('sunk');
 }
 
+function removeSunkShipDOM(shipName)
+{
+    if(document.getElementById(shipName).classList.contains('sunk') === true)
+    {
+    document.getElementById(shipName).classList.remove('sunk');
+    }
+}
+
 function changeAxis()
 {
     if (horizontal === false)
@@ -168,5 +179,126 @@ function changeAxis()
     else if(horizontal === true)
     {
         horizontal = false;
+    }
+}
+
+window.displayGame = function (winner)
+{
+    let top = document.getElementById('top');
+    if(winner === 'comp')
+    {
+        top.innerHTML = 'Computer Wins!'
+    }
+    else if(winner === 'player')
+    {
+        top.innerHTML = 'Player Wins!'
+    }
+}
+
+window.wipe = function ()
+{
+    p1ship1.coord = [[1,1]];
+    p1ship2.coord = [[2,10],[3,10]];
+    p1ship3.coord = [[6,2],[7,2],[8,2]];
+    p1ship4.coord = [[5,6],[6,6],[7,6]];
+    p1ship5.coord = [[2,4],[2,5],[2,6],[2,7]];
+    p1ship6.coord = [[10,4],[10,5],[10,6],[10,7],[10,8]];
+
+    placeShipDOM([1,1]);
+    placeShipDOM([2,10]);
+    placeShipDOM([3,10]);
+    placeShipDOM([6,2]);
+    placeShipDOM([7,2]);
+    placeShipDOM([8,2]);
+    placeShipDOM([5,6]);
+    placeShipDOM([6,6]);
+    placeShipDOM([7,6]);
+    placeShipDOM([2,4]);
+    placeShipDOM([2,5]);
+    placeShipDOM([2,6]);
+    placeShipDOM([2,7]);
+    placeShipDOM([10,4]);
+    placeShipDOM([10,5]);
+    placeShipDOM([10,6]);
+    placeShipDOM([10,7]);
+    placeShipDOM([10,8]);
+
+    p1ship1.sunk = false;
+    p1ship2.sunk = false;
+    p1ship3.sunk = false;
+    p1ship4.sunk = false;
+    p1ship5.sunk = false;
+    p1ship6.sunk = false;
+
+    p1ship1.numhits = 0;
+    p1ship2.numhits = 0;
+    p1ship3.numhits = 0;
+    p1ship4.numhits = 0;
+    p1ship5.numhits = 0;
+    p1ship6.numhits = 0;
+
+    compship1.sunk = false;
+    compship2.sunk = false;
+    compship3.sunk = false;
+    compship4.sunk = false;
+    compship5.sunk = false;
+    compship6.sunk = false;
+
+    compship1.numhits = 0;
+    compship2.numhits = 0;
+    compship3.numhits = 0;
+    compship4.numhits = 0;
+    compship5.numhits = 0;
+    compship6.numhits = 0;
+
+    board1.p1miss = [];
+    board1.compmiss = []
+    board1.p1hit = [];
+    board1.comphit = [];
+
+    player1.compAttacks = [];
+
+    shipHunt = false;
+    shipHuntCoord = [];
+    shipHuntNextCoord = [];
+    huntRight = true;
+    huntLeft = true;
+    huntUp = true;
+    huntDown = true;
+
+    removeSunkShipDOM('p1ship1');
+    removeSunkShipDOM('p1ship2');
+    removeSunkShipDOM('p1ship3');
+    removeSunkShipDOM('p1ship4');
+    removeSunkShipDOM('p1ship5');
+    removeSunkShipDOM('p1ship6');
+    removeSunkShipDOM('compship1');
+    removeSunkShipDOM('compship2');
+    removeSunkShipDOM('compship3');
+    removeSunkShipDOM('compship4');
+    removeSunkShipDOM('compship5');
+    removeSunkShipDOM('compship6');
+
+    for(let i=1; i<=10;i++)
+    {
+        for(let j=1;j<=10;j++)
+        {
+            if(document.getElementById(getPId(i,j)).classList.contains('missed'))
+            {
+                document.getElementById(getPId(i,j)).classList.remove('missed')                
+            }
+            if(document.getElementById(getPId(i,j)).classList.contains('hit'))
+            {
+                document.getElementById(getPId(i,j)).classList.remove('hit')
+            }
+            if(document.getElementById(getCId(i,j)).classList.contains('missed'))
+            {
+                document.getElementById(getCId(i,j)).classList.remove('missed')
+            }
+            if(document.getElementById(getCId(i,j)).classList.contains('hit'))
+            {
+                document.getElementById(getCId(i,j)).classList.remove('hit')
+            }
+        }
     }
 }

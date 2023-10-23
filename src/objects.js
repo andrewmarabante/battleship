@@ -62,11 +62,11 @@ class gameboard
     {
       //player ships
       globalThis.p1ship1 = new ship(1,[[1,1]], 'p1ship1');
-      globalThis.p1ship2 = new ship(2,[[2,1],[2,2]],'p1ship2');
-      globalThis.p1ship3 = new ship(3,[[3,1],[3,2],[3,3]],'p1ship3');
-      globalThis.p1ship4 = new ship(3,[[4,1],[4,2],[4,3]],'p1ship4');
-      globalThis.p1ship5 = new ship(4,[[5,1],[5,2],[5,3],[5,4]],'p1ship5');
-      globalThis.p1ship6 = new ship(5,[[6,1],[6,2],[6,3],[6,4],[6,5]],'p1ship6');
+      globalThis.p1ship2 = new ship(2,[[2,10],[3,10]],'p1ship2');
+      globalThis.p1ship3 = new ship(3,[[6,2],[7,2],[8,2]],'p1ship3');
+      globalThis.p1ship4 = new ship(3,[[5,6],[6,6],[7,6]],'p1ship4');
+      globalThis.p1ship5 = new ship(4,[[2,4],[2,5],[2,6],[2,7]],'p1ship5');
+      globalThis.p1ship6 = new ship(5,[[10,4],[10,5],[10,6],[10,7],[10,8]],'p1ship6');
       //computer ships
       globalThis.compship1 = new ship(1,[[1,1]],'compship1');
       globalThis.compship2 = new ship(2,[[2,1],[2,2]],'compship2');
@@ -345,13 +345,13 @@ class gameboard
     {
       if(p1ship1.sunk === true && p1ship2.sunk === true && p1ship3.sunk === true && p1ship4.sunk === true && p1ship5.sunk === true && p1ship6.sunk === true)
       {
-        alert('Computer Wins');
+        displayGame('comp');
         this.game = true;
         player1.wins++;
       }
       if(compship1.sunk === true && compship2.sunk === true && compship3.sunk === true && compship4.sunk === true && compship5.sunk === true && compship6.sunk === true)
       {
-        alert('Player Wins');
+        displayGame('player');
         this.game = true;
         player1.losses++;
       }
