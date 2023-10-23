@@ -205,6 +205,14 @@ window.wipe = function ()
     p1ship5.coord = [[2,4],[2,5],[2,6],[2,7]];
     p1ship6.coord = [[10,4],[10,5],[10,6],[10,7],[10,8]];
 
+    player1.placeCompShips();
+    player1.placeCompShips();
+    player1.placeCompShips();
+    player1.placeCompShips();
+    player1.placeCompShips();
+    player1.placeCompShips();
+    player1.placeCompShips();
+
     placeShipDOM([1,1]);
     placeShipDOM([2,10]);
     placeShipDOM([3,10]);
